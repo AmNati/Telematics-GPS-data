@@ -56,6 +56,25 @@ glimpse(gps)
 
 
 
+map_plot_func = function(t_n, df, x = "longitude", y = "latitude"){
+  dat <- df %>% filter(trip_nb == t_n)
+  lon <- median(as.matrix(dat[[x]]))
+  lat <- median(as.matrix(dat[[y]]))
+  map_g <- get_map(location = c(lon, lat), maptype = "terrain",
+                   source = "google",
+                   crop = TRUE,
+                   scale = 1,
+                   zoom = 14)
+  
+  ggmap(map_g, base_layer = ggplot(dat, aes(x = .data[[x]], y = .data[[y]]))) +
+    geom_point() +
+    ggtitle(paste("Trip", t_n)) +
+    theme(axis.text.x = element_blank(),
+          axis.ticks.x = element_blank(),
+          axis.text.y = element_blank(),
+          axis.ticks.y = element_blank())
+}
+
 cowplot::plot_grid(map_plot_func(t_n = 1, gps), map_plot_func(t_n = 2, gps),     
                    map_plot_func(t_n = 3, gps), map_plot_func(t_n = 4, gps))
 

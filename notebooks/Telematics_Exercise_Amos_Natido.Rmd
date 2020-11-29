@@ -78,8 +78,8 @@ Below we plot and visualize the trajectory of the various trips on a google map 
 locations of the moving vehicle. There appear to gaps in the path of some of the trips.
 
 ```{r}
-# Registering for a Google API to fetch map
-register_google(key = "AIzaSyCl2syYwf7SBAx2rHuiVg1DMTDNikAe95E")
+# Register for a Google API to fetch map
+
 
 map_plot_func = function(t_n, df, x = "longitude", y = "latitude"){
                       dat <- df %>% filter(trip_nb == t_n)
